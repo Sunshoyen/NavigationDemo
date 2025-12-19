@@ -38,6 +38,16 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen(modifier: Modifier = Modifier) {
     val backStack = rememberNavBackStack(HomeScreen)
+
+    val onClearBackStack: () -> Unit = {
+        while (backStack.size > 1) {
+            backStack.removeLastOrNull()
+        }
+    }
+    val onNavigation: (NavKey) -> Unit = {
+        backStack.add(it)
+    }
+
     NavDisplay(
         backStack = backStack,
         onBack = { backStack.removeLastOrNull() },
